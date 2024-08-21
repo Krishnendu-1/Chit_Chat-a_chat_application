@@ -12,15 +12,14 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Image from 'react-bootstrap/Image';
-import { endpoint } from '../../../imp';
 
 function Chatting(){
   const [messages,setMessages]=useState([])
-
+// const endpoint='https://chitchat-backend-server.onrender.com';
+const endpoint='http://localhost:4000';
   const [id,setId]=useState('');
   const sendmessage=()=>{
 
-    // if(messages){
     const socket= io(endpoint, { transports: ['websocket'] });//*⭐⭐⭐⭐because outside it'll run for once and onchange in useeffect will run again , causing to print logs 2 times. here it will run onchange in the function only⭐
     const message=document.getElementById('senduser').value;
 
@@ -41,28 +40,23 @@ function Chatting(){
     
     //accessing the "me" message except "All"
     socket.on('massage',(data)=>{
-        setMessages((prev)=>[...prev,data]);//*⭐⭐⭐⭐⭐By using [...messages, data], you are creating a new array that includes all the previous messages and the new message.
+      setMessages((prev)=>[...prev,data]);//*⭐⭐⭐⭐⭐By using [...messages, data], you are creating a new array that includes all the previous messages and the new message.
       console.log(data.user,data.message);
     
     });
 
-   // accessing to "All" message can see except "me"
+  // accessing to "All" message can see except "me"
   socket.on('newjoin',(data)=>{
     setMessages((prev)=>[...prev,data]);
     console.log(data.user,data.message);
 });
 
-
-socket.on('left',(data)=>{
+socket.once('left',(data)=>{
 setMessages((prev)=>[...prev,data]);
-if(data.message)
-console.log(data.message);
-  });
+});
 
 
-  
-    
-    return ()=>{
+return ()=>{
 //⭐2 times print problem due to "socket.on('disconnet')" & reserved keyword problem --> ALL SOLVED USING "socket.disconnect()" ⭐⭐⭐
       socket.disconnect();//*this in-built(socket.disconnect();) event will invoke backend event to disconnect, not use 'disconnect' as event-->eg, socket.emit('disconnect'); it is a reserved keyword in "socket.io"
       socket.off();//dont forget to off() it.
@@ -84,7 +78,6 @@ useEffect(()=>{
     socket.off();
   }
 },[messages])
-
 
 
 
