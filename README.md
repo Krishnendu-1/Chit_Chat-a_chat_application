@@ -13,21 +13,21 @@ Message History: Stores and displays all messages sent and received by users. Sp
 
 # Frontend:
 
-React.js: A JavaScript library for building user interfaces.
-React-router-dom: For managing navigation within the application.
-React-scroll-to-bottom: Automatically scrolls the chat window to the latest message.
-Socket.io-Client: Enables real-time communication between the client and server.
-Bootstrap: Ensure the device friendly UI/UX with responsive design.
-Tailwind CSS: A utility-first CSS framework for rapid, customizable styling.
+**React.js**: A JavaScript library for building user interfaces.
+**React-router-dom**: For managing navigation within the application.
+**React-scroll-to-bottom**: Automatically scrolls the chat window to the latest message.
+**Socket.io-client**: Enables real-time communication between the client and server.
+**Bootstrap**: Ensure the device friendly UI/UX with responsive design.
+**Tailwind CSS**: A utility-first CSS framework for rapid, customizable styling.
 
 # Backend:
 
-Node.js: JavaScript runtime built on Chrome's V8 JavaScript engine.
-Express.js: Web application framework for Node.js, providing a robust set of features for web and mobile applications.
-Socket.io-Server: Enables real-time, bidirectional, and event-based communication between the browser and the server.
-nodemon: Auto-restarts server on code changes.
-cors: Enables cross-origin requests.
-dotenv: Loads sensetive env vars from .env file.
+**Node.js**: JavaScript runtime built on Chrome's V8 JavaScript engine.
+**Express.js**: Web application framework for Node.js, providing a robust set of features for web and mobile applications.
+**Socket.io**: Enables real-time, bidirectional, and event-based communication between the browser and the server.
+**nodemon**: Auto-restarts server on code changes.
+**cors**: Enables cross-origin requests.
+**dotenv**: Loads sensetive env vars from .env file.
 
 # Installation
 Prerequisites
@@ -40,7 +40,7 @@ npm (v6.x or higher) or yarn
 Clone the Repository:
 
 bash
-git clone `https://github.com/your-username/chat-app.git`
+git clone `https://github.com/Krishnendu-1/Chit_Chat-a_chat_application`
 cd chat-app
 Navigate to the Backend Directory:
 
@@ -74,3 +74,6 @@ The frontend should now be running on `http://localhost:{your-port}`.
 
 Running the Application
 Once both the backend and frontend servers are running, open your web browser and navigate to `http://localhost:{your-set-port}`. You should be able to register and start chatting in real time 😀
+
+Thanks,
+Krishnendu Roy
