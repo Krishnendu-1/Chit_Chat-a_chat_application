@@ -40,7 +40,7 @@ npm (v6.x or higher) or yarn
 Clone the Repository:
 
 bash
-git clone `https://github.com/your-username/chat-app.git`
+git clone `https://github.com/Krishnendu-1/Chit_Chat-a_chat_application`
 cd chat-app
 Navigate to the Backend Directory:
 
