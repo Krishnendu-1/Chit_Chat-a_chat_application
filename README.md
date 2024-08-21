@@ -74,3 +74,6 @@ The frontend should now be running on `http://localhost:{your-port}`.
 
 Running the Application
 Once both the backend and frontend servers are running, open your web browser and navigate to `http://localhost:{your-set-port}`. You should be able to register and start chatting in real time 😀
+
+Thanks,
+Krishnendu Roy
