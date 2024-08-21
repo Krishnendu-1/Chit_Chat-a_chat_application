@@ -16,7 +16,7 @@ Message History: Stores and displays all messages sent and received by users. Sp
 React.js: A JavaScript library for building user interfaces.
 React-router-dom: For managing navigation within the application.
 React-scroll-to-bottom: Automatically scrolls the chat window to the latest message.
-Socket.io-Client: Enables real-time communication between the client and server.
+Socket.io-client: Enables real-time communication between the client and server.
 Bootstrap: Ensure the device friendly UI/UX with responsive design.
 Tailwind CSS: A utility-first CSS framework for rapid, customizable styling.
 
@@ -24,7 +24,7 @@ Tailwind CSS: A utility-first CSS framework for rapid, customizable styling.
 
 Node.js: JavaScript runtime built on Chrome's V8 JavaScript engine.
 Express.js: Web application framework for Node.js, providing a robust set of features for web and mobile applications.
-Socket.io-Server: Enables real-time, bidirectional, and event-based communication between the browser and the server.
+Socket.io: Enables real-time, bidirectional, and event-based communication between the browser and the server.
 nodemon: Auto-restarts server on code changes.
 cors: Enables cross-origin requests.
 dotenv: Loads sensetive env vars from .env file.
