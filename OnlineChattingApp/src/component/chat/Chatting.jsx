@@ -15,10 +15,11 @@ import Image from 'react-bootstrap/Image';
 
 function Chatting(){
   const [messages,setMessages]=useState([])
+// const endpoint='http://localhost:4000';
 const endpoint='https://chitchat-backend-server.onrender.com';
   const [id,setId]=useState('');
-  const sendmessage=()=>{
 
+  const sendmessage=()=>{
     const socket= io(endpoint, { transports: ['websocket'] });//*⭐⭐⭐⭐because outside it'll run for once and onchange in useeffect will run again , causing to print logs 2 times. here it will run onchange in the function only⭐
     const message=document.getElementById('senduser').value;
 
@@ -50,9 +51,9 @@ const endpoint='https://chitchat-backend-server.onrender.com';
     console.log(data.user,data.message);
 });
 
-socket.once('left',(data)=>{
-setMessages((prev)=>[...prev,data]);
-});
+// socket.once('left',(data)=>{
+// setMessages((prev)=>[...prev,data]);
+// });
 
 
 return ()=>{
@@ -79,19 +80,36 @@ useEffect(()=>{
 },[messages])
 
 
+useEffect(()=>{
+  const socket= io(endpoint, { transports: ['websocket'] });
+  socket.once('left',(data)=>{
+    setMessages((prev)=>[...prev,data]);
+    console.log(data.message);
+    });
+
+    return () => {
+        socket.disconnect();
+        socket.off();
+    };
+},[])
+
+
+
+
+
 
   return (
     <div style={{height:'80vh'}}>
     <Navbar expand="lg" className="bg-body-tertiary" sticky='top'>
       <Container fluid>
-        <Navbar.Brand href=""><Image src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAaSmw9-rAur-kI3b0yFn8K0d8g8f6HlrvGQ&s" roundedCircle className=' h-12 w-12'/></Navbar.Brand>
+        <Navbar.Brand ><Image src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAaSmw9-rAur-kI3b0yFn8K0d8g8f6HlrvGQ&s" roundedCircle className=' h-12 w-12'/></Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav
             className="me-auto my-2 my-lg-0"
             style={{ maxHeight: '100px' }}
             navbarScroll >
-            <Nav.Link href="" active>Home</Nav.Link>
+            <Nav.Link href="#" active>Home</Nav.Link>
             <NavDropdown title="Krishnendu Roy" id="navbarScrollingDropdown">
               <NavDropdown.Item href="https://www.linkedin.com/in/krishnenduroy1/">LinkedIn</NavDropdown.Item>
               <NavDropdown.Divider/>
@@ -107,8 +125,8 @@ useEffect(()=>{
 
     <div className=' flex justify-center items-center h-full w-full'>
     <Card className=' w-[25rem] h-[20rem] flex flex-col justify-between' >
-      <div className='w-full min-h-10 bg-green-600'>
-        <h1 className=' text-white text-xl flex justify-center items-center w-full h-full font-bold font-sans'>Chit Chat</h1>
+      <div className='w-full min-h-10 bg-green-600 flex justify-between items-center'>
+        <h1 className=' text-white text-xl font-bold font-sans'>Chit Chat</h1>
       </div>
       <ReactScrollToBottom className=' overflow-y-hidden'>{ /* autoscroll to bottom   */}
         {messages.map((item,idd)=>(<Messages key={idd} user={item.id==id?"You":item.user} message={item.message} side={item.id==id?{display:'flex',alignItems:'end', flexDirection:'column'}:{display:'flex',alignItems:'start', flexDirection:'column',}}/>))}      
