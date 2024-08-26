@@ -2,6 +2,7 @@
 
 This full-stack web chat application is designed to provide real-time communication between users. The application is built with a modern tech stack, leveraging React.js for the frontend, Node.js and Express.js for the backend, and Socket.io as the WebSocket library to enable real-time bidirectional communication.
 
+https://github.com/user-attachments/assets/f7adcf73-2d3d-48b9-b5de-31a544fe2515
 # Features
 Real-Time Messaging: Instant communication between multiple users in real time.
 User Identification: This functionality is used to know users before accessing the chat with valid usernames.
