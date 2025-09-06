@@ -3,13 +3,54 @@ import express from 'express'
 import { configDotenv } from 'dotenv'
 import cors from 'cors'
 import { Server } from 'socket.io'
+import helmet from 'helmet'
+import rateLimit from 'express-rate-limit'
+import cookieParser from 'cookie-parser'
+
 
 configDotenv();
+
+
 const port=process.env.PORT || 3000;
+const cors_uri=process.env.CORS_URI.split(',');
 const app=express();
-app.use(cors());
+app.use(cors(
+    {
+        origin:function(origin,callback){//callback(error,allow)-->allow can be bool or string-->from the docs
+            if(!origin || cors_uri.includes(origin)){
+                callback(null,origin);//or callback(null,true)
+            }
+            else{
+                callback(new Error("cors denied"));
+            }
+        }
+        ,
+        credentials:true
+    }
+));
+
+
 const server =http.createServer(app);
 const io = new Server(server);
+
+app.use(
+    express.urlencoded({
+        extended:true,
+        limit:"15kb"
+    })
+)
+app.use(helmet());
+app.use(
+    rateLimit({
+        windowMs:15*60*1000,//15 mins
+        max:100,//max request in 15 mins
+        message:"Too many requests from this IP, please try again after 15 mins"
+    })
+)
+
+app.use(express.json({limit:"15kb"}));
+app.use(cookieParser());
+
 
 const users=[{}];
 app.get('/',(req,res)=>{//always it will take "req" and then "res" it.
