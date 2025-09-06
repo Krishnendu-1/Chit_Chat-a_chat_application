@@ -16,11 +16,15 @@ import Image from 'react-bootstrap/Image';
 function Chatting(){
   const [messages,setMessages]=useState([])
 // const endpoint='http://localhost:4000';
-const endpoint='https://chitchat-backend-server.onrender.com';
+const endpoint='http://localhost:3000';
   const [id,setId]=useState('');
 
   const sendmessage=()=>{
-    const socket= io(endpoint, { transports: ['websocket'] });//*⭐⭐⭐⭐because outside it'll run for once and onchange in useeffect will run again , causing to print logs 2 times. here it will run onchange in the function only⭐
+    const token = localStorage.getItem('token');
+    const socket= io(endpoint, {
+      transports: ['websocket'],
+      auth: { token }
+    });//*⭐⭐⭐⭐because outside it'll run for once and onchange in useeffect will run again , causing to print logs 2 times. here it will run onchange in the function only⭐
     const message=document.getElementById('senduser').value;
 
     //check whether message is empty or not
@@ -31,12 +35,16 @@ const endpoint='https://chitchat-backend-server.onrender.com';
   }
 
   useEffect(()=>{
-    const socket= io(endpoint, { transports: ['websocket'] });//⭐⭐⭐⭐because outside it'll run for once and onchange in useeffect will run again , causing to print logs 2 times. here it will run onchange in the function only⭐
+    const token = localStorage.getItem('token');
+    const socket= io(endpoint, {
+      transports: ['websocket'],
+      auth: { token }
+    });//⭐⭐⭐⭐because outside it'll run for once and onchange in useeffect will run again , causing to print logs 2 times. here it will run onchange in the function only⭐
     socket.on('connect',()=>{
     setId(socket.id);//whenver client connected, "socket.id" will pass to useState(), later this is used to accessed "name" of "sender" and the accotiated "message".
     });//server will recieve when client lands in this page , the function invoked the server "io.on()"
-   
-    socket.emit('join',{username});//will emits/send the username to the server
+
+    socket.emit('join');//will emits/send the username to the server
     
     //accessing the "me" message except "All"
     socket.on('massage',(data)=>{
@@ -68,12 +76,16 @@ return ()=>{
    
 
 useEffect(()=>{
-    const socket= io(endpoint, { transports: ['websocket'] });
+    const token = localStorage.getItem('token');
+    const socket= io(endpoint, {
+      transports: ['websocket'],
+      auth: { token }
+    });
      socket.on('showmsg',(data)=>{
     setMessages((prev)=>[...prev,data]);
     console.log(data.user,data.message,data.id);
   });
-  
+
   return ()=>{
     socket.off();
   }
@@ -81,7 +93,11 @@ useEffect(()=>{
 
 
 useEffect(()=>{
-  const socket= io(endpoint, { transports: ['websocket'] });
+  const token = localStorage.getItem('token');
+  const socket= io(endpoint, {
+    transports: ['websocket'],
+    auth: { token }
+  });
   socket.once('left',(data)=>{
     setMessages((prev)=>[...prev,data]);
     console.log(data.message);
