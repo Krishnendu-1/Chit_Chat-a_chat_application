@@ -16,7 +16,7 @@ import Image from 'react-bootstrap/Image';
 function Chatting(){
   const [messages,setMessages]=useState([])
 // const endpoint='http://localhost:4000';
-const endpoint='http://localhost:3000';
+const endpoint='https://chitchat-backend-server.onrender.com';
   const [id,setId]=useState('');
 
   const sendmessage=()=>{
